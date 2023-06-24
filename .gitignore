@@ -1,3 +1,8 @@
 fetched/*
 Chromium*
+*.bz2
+*.tgz
+lib/libcef/mac/*
+*.old
+
 
