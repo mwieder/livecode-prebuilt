@@ -4,5 +4,6 @@ Chromium*
 *.tgz
 lib/libcef/mac/*
 *.old
-
+lib/linux/x86_64/CEF/libcef.so
+lib/linux/x86_64/libskia.a
 
