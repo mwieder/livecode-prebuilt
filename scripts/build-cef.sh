@@ -8,6 +8,7 @@ source "${BASEDIR}/scripts/util.inc"
 
 CEF_BUILDVERSION="5672"
 CEF_URL="https://bitbucket.org/chromiumembedded/cef/get/"
+# https://bitbucket.org/chromiumembedded/cef/get/1353677a983f.zip
 
 # Grab the source for the library
 if [ "${ARCH}" == "x86" ] ; then
@@ -29,7 +30,7 @@ if [ ! -d "$CEF_DST" ] ; then
 	if [ ! -e "$CEF_TGZ" ] ; then
 		echo "Fetching CEF source"
 #		fetchUrl "http://opensource.spotify.com/cefbuilds/${CEF_SRC}" "${CEF_TGZ}"
-		fetchUrl "${CEF_URL}${CEF_BUILDVERSION}" "${CEF_TGZ}"
+		fetchUrl "${CEF_URL}${CEF_BUILDVERSION}.tar.bz2" "${CEF_TGZ}"
 		if [ $? != 0 ] ; then
 			echo "downloading ${CEF_URL}${CEF_BUILDVERSION} failed"
 			if [ -e "${CEF_TGZ}" ] ; then 

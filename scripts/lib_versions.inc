@@ -8,7 +8,10 @@ function readVersion {
 	
 	local VERSION=$(cat "${script_dir}/../versions/${LIBNAME_LC}")
 	eval ${LIBNAME}_VERSION='"${VERSION}"'
-	
+	export ${LIBNAME}_VERSION="${VERSION}"
+
+# echo "${LIBNAME}_VERSION=${VERSION}"
+
 	if [ -f "${script_dir}/../versions/${LIBNAME_LC}_buildrevision" ] ; then
 		local BUILDREVISION=$(cat "${script_dir}/../versions/${LIBNAME_LC}_buildrevision")
 		eval ${LIBNAME}_BUILDREVISION='"${BUILDREVISION}"'
@@ -24,7 +27,9 @@ readVersion CEFChromium
 readVersion Thirdparty
 
 # extract hash from start of submodule status
-Thirdparty_VERSION=$(expr "$(git submodule status | grep 'thirdparty' )" : '[^0-9a-z]*\([0-9a-z]*\)')
+# Thirdparty_VERSION=$(expr "$(git submodule status | grep 'thirdparty' )" : '[^0-9a-z]*\([0-9a-z]*\)')
+
+# echo "OpenSSL_VERSION=${OpenSSL_VERSION}"
 
 # Libraries used on all platforms
 Thirdparty_LIBS_CORE="libffi libpng libz libgif libjpeg libpcre libskia"
@@ -44,3 +49,4 @@ Thirdparty_LIBS_win32="$Thirdparty_LIBS_CORE $Thirdparty_LIBS_NATIVE $Thirdparty
 Thirdparty_LIBS_ios="$Thirdparty_LIBS_CORE $Thirdparty_LIBS_NATIVE libcairo"
 Thirdparty_LIBS_emscripten="$Thirdparty_LIBS_CORE $Thirdparty_LIBS_FONTS"
 Thirdparty_LIBS_android="$Thirdparty_LIBS_CORE $Thirdparty_LIBS_NATIVE $Thirdparty_LIBS_FONTS libexpat libcairo"
+

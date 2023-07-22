@@ -6,17 +6,26 @@ REM #
 REM #   BUILD CEF
 REM #
 
-ECHO Build CEF-%CEF_VERSION%.%CEF_BUILDREVISION% for %BUILDTRIPLE%
+# 2023.07.18 currently ${CEF_BUILDVERSION} is 5672
+
+SET CEF_BUILDVERSION=5672
+SET CEF_URL="https://bitbucket.org/chromiumembedded/cef/get/"
+
+REM ECHO Build CEF-%CEF_VERSION%.%CEF_BUILDREVISION% for %BUILDTRIPLE%
+ECHO Build CEF-%CEF_BUILDVERSION% for %BUILDTRIPLE%
 
 IF %ARCH%==x86_64 (
-	SET CEF_SRC_NAME=cef_binary_%CEF_VERSION%%%2B%CEF_BUILDREVISION%%%2Bchromium-%CEFChromium_VERSION%_windows64
-	SET CEF_DST_NAME=cef_binary_%CEF_VERSION%+%CEF_BUILDREVISION%+chromium-%CEFChromium_VERSION%_windows64
+REM	SET CEF_SRC_NAME=cef_binary_%CEF_VERSION%%%2B%CEF_BUILDREVISION%%%2Bchromium-%CEFChromium_VERSION%_windows64
+REM	SET CEF_DST_NAME=cef_binary_%CEF_VERSION%+%CEF_BUILDREVISION%+chromium-%CEFChromium_VERSION%_windows64
+	SET CEF_DST=..\fetched\CEF-%CEF_BUILDVERSION%_%PLATFORM%_windows64
 ) ELSE (
-	SET CEF_SRC_NAME=cef_binary_%CEF_VERSION%%%2B%CEF_BUILDREVISION%%%2Bchromium-%CEFChromium_VERSION%_windows32
-	SET CEF_DST_NAME=cef_binary_%CEF_VERSION%+%CEF_BUILDREVISION%+chromium-%CEFChromium_VERSION%_windows32
+REM	SET CEF_SRC_NAME=cef_binary_%CEF_VERSION%%%2B%CEF_BUILDREVISION%%%2Bchromium-%CEFChromium_VERSION%_windows32
+REM	SET CEF_DST_NAME=cef_binary_%CEF_VERSION%+%CEF_BUILDREVISION%+chromium-%CEFChromium_VERSION%_windows32
+	SET CEF_DST=..\fetched\CEF-%CEF_BUILDVERSION%_%PLATFORM%_windows32
 )
 
-SET CEF_TGZ=%_ROOT_DIR%\%CEF_DST_NAME%.tar.bz2
+REM SET CEF_TGZ=%_ROOT_DIR%\%CEF_DST_NAME%.tar.bz2
+SET CEF_TGZ=%CEF_DST%.tar.bz2
 SET CEF_SRC=%_ROOT_DIR%\%CEF_DST_NAME%
 SET CEF_BIN=%_ROOT_DIR%\cef-%CEF_VERSION%.%CEF_BUILDREVISION%-%BUILDTRIPLE%-bin
 SET CEF_BUILD_LOG=%_ROOT_DIR%\cef-%CEF_VERSION%.%CEF_BUILDREVISION%-%BUILDTRIPLE%.log
@@ -27,11 +36,11 @@ cd "%_ROOT_DIR%"
 
 if not exist %CEF_TGZ% (
 	echo Fetching CEF-%CEF_VERSION% for %BUILDTRIPLE%
-	perl -MLWP::Simple -e "getstore('http://opensource.spotify.com/cefbuilds/%CEF_SRC_NAME%.tar.bz2', '%CEF_TGZ%')"
+	perl -MLWP::Simple -e "getstore('%CEF_URL%%CEF_BUILDVERSION%.tar.bz2', '%CEF_TGZ%')"
 )
 
 if not exist %CEF_TGZ% (
-	echo Failed to download http://opensource.spotify.com/cefbuilds/%CEF_SRC_NAME%.tar.bz2 to %CEF_TGZ%
+	echo Failed to download %CEF_URL%%CEF_BUILDVERSION%.tar.bz2 to %CEF_TGZ%
 	EXIT /B 1
 )
 
