@@ -3,8 +3,8 @@ fetched/*
 Chromium*
 *.bz2
 *.tgz
-lib/libcef/mac/*
+*.gz
 *.old
-lib/linux/x86_64/CEF/libcef.so
-lib/linux/x86_64/libskia.a
-
+lib/*
+bin/*
+build/*
