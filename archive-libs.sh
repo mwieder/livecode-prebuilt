@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7782577d84106c438b63521d810dd90d8f2ca25c2abac1be03aee7b8c6182d24
-size 439
+#!/bin/bash
+
+# Package directory
+PACKAGE_DIR="packaged"
+
+PLATFORM=$1
+ARCH=$2
+SUBPLATFORM=$3
+
+if [ -z "${SUBPLATFORM}" ] ; then
+	ARCHIVE_TAR="${ARCH}-${PLATFORM}-prebuilts.tar"
+else
+	ARCHIVE_TAR="${ARCH}-${PLATFORM}-${SUBPLATFORM}-prebuilts.tar"
+fi
+
+echo "Creating archive ${ARCHIVE_TAR}"
+# Add packages to archive
+tar -cf "../${ARCHIVE_TAR}" "${PACKAGE_DIR}/"
+
+if [ -f "../${ARCHIVE_TAR}" ] ; then
+	bzip2 -zf --best "../${ARCHIVE_TAR}"
+fi
