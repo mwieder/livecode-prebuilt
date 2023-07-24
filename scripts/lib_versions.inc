@@ -1,4 +1,4 @@
-# This file set the libraries version variables to the version defined in versions/
+# This file sets the libraries version variables to the version defined in versions/
 
 script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
