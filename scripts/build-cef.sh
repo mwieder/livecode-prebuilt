@@ -6,7 +6,6 @@ source "${BASEDIR}/scripts/util.inc"
 
 # 2023.10.27 currently ${CEF_BUILDVERSION} is 5993
 
-CEF_BUILDVERSION="3729"
 CEF_ROOT="https://cef-builds.spotifycdn.com/cef_binary_"
 
 # Grab the source for the library
@@ -25,24 +24,26 @@ else
   echo "No binaries available for arch"
 fi
 
-CEF_TGZ="${CEF_DST}.tar.bz2"
 cd "${BUILDDIR}"
 
 if [ ! -d "$CEF_DST" ] ; then
+	CEF_TGZ="${CEF_DST}.tar.bz2"
 	if [ ! -e "$CEF_TGZ" ] ; then
 		echo "Fetching CEF source"
 		fetchUrl "${CEF_SRC}" "${CEF_TGZ}"
 		if [ $? != 0 ] ; then
-			echo "downloading ${CEF_ROOT}${CEF_TGZ} failed"
+			echo "downloading ${CEF_SRC} failed"
 			if [ -e "${CEF_TGZ}" ] ; then 
 				rm ${CEF_TGZ} 
 			fi
 			exit
 		fi
 	fi
-	
-	echo "Unpacking CEF source"
-	tar -vjxf "${CEF_TGZ}"
+
+	if [ ! -d "${CEF_UNPACKED_DIR}/Debug" ] ; then
+		echo "Unpacking CEF source"
+		tar -vjxf "${CEF_TGZ}"
+	fi
 fi
 				
 # just repackage existing prebuilts and strip unneeded symbols
@@ -52,11 +53,16 @@ function buildCEF {
 	
 	CEF_LIB_DIR="${OUTPUT_DIR}/lib/${PLATFORM}/${ARCH}/CEF"
 	mkdir -p "${CEF_LIB_DIR}"
-	cp -av "${CEF_UNPACKED_DIR}/Release/"* "${CEF_LIB_DIR}"
-	cp -av "${CEF_UNPACKED_DIR}/Resources/"* "${CEF_LIB_DIR}"
+	cp -a "${CEF_UNPACKED_DIR}/Release/"* "${CEF_LIB_DIR}"
+	cp -a "${CEF_UNPACKED_DIR}/Resources/"* "${CEF_LIB_DIR}"
+	rm -r "../../thirdparty/libcef/include/*"
+	rm -r "../../thirdparty/libcef/libcef_dll/*"
+	cp -al "${CEF_UNPACKED_DIR}/include" "../../thirdparty/libcef"
+	cp -al "${CEF_UNPACKED_DIR}/libcef_dll" "../../thirdparty/libcef"
+#	cp -av "${CEF_UNPACKED_DIR}/*.txt" "../../thirdparty/libcef"
 	strip --strip-unneeded "${CEF_LIB_DIR}/libcef.so"
 }
 
-echo "building from ${BUILDDIR}/${CEF_DST}" 
+#echo "building from ${BUILDDIR}/${CEF_DST}" 
 buildCEF "${PLATFORM}" "${ARCH}"
 

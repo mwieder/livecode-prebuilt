@@ -1,4 +1,5 @@
 # This file sets the libraries version variables to the version defined in versions/
+# note that there should NOT be a trailing blank line
 
 script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
@@ -6,15 +7,20 @@ function readVersion {
 	local LIBNAME=$1
 	local LIBNAME_LC=$(tr "[:upper:]" "[:lower:]" <<< $LIBNAME)
 	
-	local VERSION=$(cat "${script_dir}/../versions/${LIBNAME_LC}")
+	local VERSION=$(tail --lines=1 "${script_dir}/../versions/${LIBNAME_LC}")
 	eval ${LIBNAME}_VERSION='"${VERSION}"'
 	export ${LIBNAME}_VERSION="${VERSION}"
 
 # echo "${LIBNAME}_VERSION=${VERSION}"
 
 	if [ -f "${script_dir}/../versions/${LIBNAME_LC}_buildrevision" ] ; then
-		local BUILDREVISION=$(cat "${script_dir}/../versions/${LIBNAME_LC}_buildrevision")
+		local BUILDREVISION=$(tail --lines=1 "${script_dir}/../versions/${LIBNAME_LC}_buildrevision")
 		eval ${LIBNAME}_BUILDREVISION='"${BUILDREVISION}"'
+	fi
+
+	if [ -f "${script_dir}/../versions/${LIBNAME_LC}_buildversion" ] ; then
+		local BUILDVERSION=$(tail --lines=1 "${script_dir}/../versions/${LIBNAME_LC}_buildversion")
+		eval ${LIBNAME}_BUILDVERSION='"${BUILDVERSION}"'
 	fi
 }
 
@@ -23,6 +29,7 @@ readVersion ICU
 readVersion Curl
 readVersion CEF
 readVersion CEFChromium
+#readVersion CEFBuildversion
 
 readVersion Thirdparty
 
