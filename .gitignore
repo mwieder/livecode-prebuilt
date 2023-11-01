@@ -3,3 +3,6 @@ bin/*
 *.bz2
 *.tgz
 share/*
+*.gz
+build/*
+
