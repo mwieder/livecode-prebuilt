@@ -1,9 +1,5 @@
-fetched
-fetched/*
 lib/*
 bin/*
-Chromium*
 *.bz2
 *.tgz
-*.old
 share/*
