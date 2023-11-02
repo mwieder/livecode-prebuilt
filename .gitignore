@@ -1,8 +1,9 @@
-lib/*
-bin/*
+Chromium*
 *.bz2
 *.tgz
-share/*
 *.gz
+lib/*
+bin/*
+share/*
 build/*
 

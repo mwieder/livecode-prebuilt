@@ -12,8 +12,6 @@ ICU_CFLAGS="-DU_USING_ICU_NAMESPACE=0 -DUNISTR_FROM_CHAR_EXPLICIT=explicit -DUNI
 ICU_VERSION_ALT=$(echo "${ICU_VERSION}" | sed 's/\./_/g')
 ICU_VERSION_MAJOR=$(echo "${ICU_VERSION}" | sed 's/\..*//g')
 
-ICU_URL="https://downloads.sourceforge.net/project/icu/ICU4C/"
-
 # Grab the source for the library
 ICU_TGZ="icu-${ICU_VERSION}.tar.gz"
 ICU_SRC="icu-${ICU_VERSION}"
@@ -35,7 +33,7 @@ esac
 if [ ! -d "$ICU_SRC" ] ; then
 	if [ ! -e "$ICU_TGZ" ] ; then
 		echo "Fetching ICU source"
-		fetchUrl "${ICU_URL}${ICU_VERSION}/icu4c-${ICU_VERSION_ALT}-src.tgz" "${ICU_TGZ}"
+		fetchUrl "https://downloads.sourceforge.net/project/icu/ICU4C/${ICU_VERSION}/icu4c-${ICU_VERSION_ALT}-src.tgz" "${ICU_TGZ}"
 		if [ $? != 0 ] ; then
 			echo "    failed"
 			if [ -e "${ICU_TGZ}" ] ; then 
@@ -57,8 +55,6 @@ function buildICU {
 	local PLATFORM=$1
 	local ARCH=$2
 	local SUBPLATFORM=$3
-
-echo "PLATFORM = ${PLATFORM}, ARCH = ${ARCH} HOST_ARCH = ${HOST_ARCH}"
 
 	# Platform-specific options for ICU
 	case "${PLATFORM}" in
@@ -131,7 +127,7 @@ echo "PLATFORM = ${PLATFORM}, ARCH = ${ARCH} HOST_ARCH = ${HOST_ARCH}"
 		cd "${ICU_ARCH_SRC}"
 		echo "Configuring ICU for ${NAME}"
 		
-		echo "*DEBUG* calling setCCForArch ${ARCH}"
+		echo "*DEBUG* calling setCCForArch"
 		setCCForTarget "${PLATFORM}" "${ARCH}" "${SUBPLATFORM}"
 		
 		# We need to pass the target triple for Android builds
