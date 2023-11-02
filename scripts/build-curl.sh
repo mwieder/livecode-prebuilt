@@ -11,7 +11,6 @@ CURL_CONFIG="--disable-debug \
             --disable-manual \
             --enable-shared=no \
             --disable-sspi --disable-crypto-auth --disable-cookies \
-			--without-libpsl \
             --without-gnutls --without-polarssl --without-nss --without-libssh2 --without-librtmp --without-libidn"
 
 # Grab the source for the library

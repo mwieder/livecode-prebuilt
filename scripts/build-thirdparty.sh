@@ -3,12 +3,12 @@
 source "${BASEDIR}/scripts/platform.inc"
 source "${BASEDIR}/scripts/lib_versions.inc"
 
-echo "3rdparty buildrevision = ${Thirdparty_BUILDREVISION}"
-echo "3rdparty version = ${Thirdparty_VERSION}"
+echo $Thirdparty_BUILDREVISION
+echo $Thirdparty_VERSION
 
-echo "platform = ${PLATFORM}"
-echo "subplatform = ${SUBPLATFORM}"
-echo "arch = ${ARCH}"
+echo $PLATFORM
+echo $SUBPLATFORM
+echo $ARCH
 
 if [ "$XCODEBUILD" == "" ]; then
 	XCODEBUILD="xcodebuild"
@@ -56,8 +56,6 @@ elif [ "$PLATFORM" == "win32" ]; then
 	BUILDPATH=""
 	LIBPATH=""
 fi
-
-export BUILD_THIRDPARTY=1
 
 make -C .. config-$MAKE_TARGET
 

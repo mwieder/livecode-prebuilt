@@ -201,20 +201,6 @@
 	'targets':
 	[
 		{
-			'target_name': 'build-all',
-			'type': 'none',
-			
-			'dependencies':
-			[
-				'fetch-android',
-				'fetch-linux',
-				'fetch-mac',
-				'fetch-win',
-				'fetch-ios',
-				'fetch-emscripten',
-			],
-		},
-		{
 			'target_name': 'fetch-all',
 			'type': 'none',
 			
@@ -349,7 +335,7 @@
 					
 					'inputs':
 					[
-						'build-libraries.sh',
+						'fetch-libraries.sh',
 					],
 					
 					'outputs':
@@ -360,7 +346,7 @@
 					
 					'action':
 					[
-						'./build-libraries.sh',
+						'./fetch-libraries.sh',
 						'linux',
 						'<(host_arch)',
 					],
