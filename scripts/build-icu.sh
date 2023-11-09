@@ -50,6 +50,11 @@ if [ ! -d "$ICU_SRC" ] ; then
 	mv icu "${ICU_SRC}"
 fi
 
+# copy header files from prebuilt/build/icu-58-2/source/common to prebuilt/include/unicode
+echo source = ${BUILDDIR}/${ICU_SRC}/source/common
+echo dest = ${BUILDDIR}/../include/unicode
+cp "${BUILDDIR}/${ICU_SRC}/source/common/*.h" ${BUILDDIR}/../include/unicode
+
 ICU_LIBS="data i18n io le lx tu uc"
 ICU_BINARIES="icupkg pkgdata"
 
