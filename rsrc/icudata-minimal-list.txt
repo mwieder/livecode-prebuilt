@@ -1,5 +1,6 @@
 brkitr/burmesedict.dict
 brkitr/char.brk
+brkitr/word_fi_sv.brk
 brkitr/cjdict.dict
 brkitr/de.res
 brkitr/el.res
@@ -14,13 +15,17 @@ brkitr/ja.res
 brkitr/khmerdict.dict
 brkitr/laodict.dict
 brkitr/line.brk
+brkitr/line_cj.brk
 brkitr/line_fi.brk
 brkitr/line_loose.brk
 brkitr/line_loose_cj.brk
 brkitr/line_loose_fi.brk
+brkitr/line_loose_phrase_cj.brk
+brkitr/line_normal_phrase_cj.brk
 brkitr/line_normal.brk
 brkitr/line_normal_cj.brk
 brkitr/line_normal_fi.brk
+brkitr/line_phrase_cj.brk
 brkitr/pt.res
 brkitr/root.res
 brkitr/ru.res
@@ -120,4 +125,9 @@ coll/zh_TW.res
 confusables.cfu
 nfkc_cf.nrm
 nfkc.nrm
+region/en.res
+region/en_150.res
+region/en_001.res
+region/pool.res
+region/root.res
 uts46.nrm
